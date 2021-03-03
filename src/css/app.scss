@@ -1,0 +1,21 @@
+// app global css in SCSS form
+.color-infected {
+    color: $infected;
+}
+.bg-infected {
+    background-color: $infected;
+}
+
+.color-recovered {
+    color: $recovered;
+}
+.bg-recovered {
+    background-color: $recovered;
+}
+
+.color-deceased {
+    color: $deceased;
+}
+.bg-deceased {
+    background-color: $deceased;
+}
