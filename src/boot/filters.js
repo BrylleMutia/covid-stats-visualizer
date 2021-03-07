@@ -6,6 +6,10 @@ export default ({ app, router, Vue}) => {
   Vue.filter('capitalize', (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   });
+
+  Vue.filter('numWithCommas', (text) => {
+    return text.toLocaleString().replace(/,/g, ", ");
+  });
   
   Vue.prototype.$filters = Vue.options.filters;
 }

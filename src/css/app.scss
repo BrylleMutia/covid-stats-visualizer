@@ -1,21 +1,46 @@
+body {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
 // app global css in SCSS form
 .color-infected {
-    color: $infected;
+  color: $infected;
 }
 .bg-infected {
-    background-color: $infected;
+  background-color: $infected;
+}
+
+.color-tested {
+  color: $tested;
+}
+.bg-tested {
+  background-color: $tested;
 }
 
 .color-recovered {
-    color: $recovered;
+  color: $recovered;
 }
 .bg-recovered {
-    background-color: $recovered;
+  background-color: $recovered;
 }
 
 .color-deceased {
-    color: $deceased;
+  color: $deceased;
 }
 .bg-deceased {
-    background-color: $deceased;
+  background-color: $deceased;
 }

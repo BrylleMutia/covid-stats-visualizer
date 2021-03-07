@@ -1,16 +1,28 @@
 <template>
-  <q-page class="flex flex-center">
-    <Nav />
+  <q-page padding class="flex flex-center">
+    <main class="fit">
+      <div class="row full-width justify-evenly">
+        <stat-card
+          v-for="(totalData, index) of totalsData"
+          v-bind="totalData"
+          :key="index"
+        />
+      </div>
+    </main>
   </q-page>
 </template>
 
 <script>
-import Nav from "../components/nav.vue";
+import StatCard from "../components/stat-card.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "PageIndex",
   components: {
-    Nav
+    StatCard
   },
+  computed: {
+    ...mapState("chart", ["totalsData"])
+  }
 };
 </script>
