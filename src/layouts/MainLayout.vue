@@ -39,9 +39,30 @@
           icon="coronavirus"
           direction="up"
         >
-          <q-fab-action color="infected" icon="coronavirus" label="Infected"/>
-          <q-fab-action color="recovered" icon="coronavirus" label="Recovered"/>
-          <q-fab-action color="deceased" icon="coronavirus" label="Deceased" />
+          <q-fab-action
+            color="primary"
+            icon="coronavirus"
+            label="Overall"
+            @click="changeChartView(null)"
+          />
+          <q-fab-action
+            color="infected"
+            icon="coronavirus"
+            label="Infected"
+            @click="changeChartView('Infected')"
+          />
+          <q-fab-action
+            color="recovered"
+            icon="coronavirus"
+            label="Recovered"
+            @click="changeChartView('Recovered')"
+          />
+          <q-fab-action
+            color="deceased"
+            icon="coronavirus"
+            label="Deceased"
+            @click="changeChartView('Deceased')"
+          />
         </q-fab>
       </div>
       <router-view />
@@ -51,17 +72,18 @@
 
 <script>
 import EssentialLink from "components/EssentialLink.vue";
+import { mapMutations } from "vuex";
 
 const linksData = [
   {
     title: "World Stats",
     icon: "public",
-    link: "https://quasar.dev"
+    link: "/"
   },
   {
     title: "Country Stats",
     icon: "flag",
-    link: "https://github.com/quasarframework"
+    link: "/country"
   }
 ];
 
@@ -74,6 +96,9 @@ export default {
       is_fab_open: false,
       essentialLinks: linksData
     };
+  },
+  methods: {
+    ...mapMutations("chart", ["changeChartView"])
   }
 };
 </script>

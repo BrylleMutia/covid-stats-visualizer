@@ -6,7 +6,7 @@
         :width="width"
         :height="height"
         :dataformat="dataFormat"
-        :dataSource="dataSource"
+        :dataSource="filterByChartView"
       >
       </fusioncharts>
     </div>
@@ -14,61 +14,7 @@
 </template>
 
 <script>
-// const categories = [
-//   {
-//     category: [
-//       {
-//         label: "Q1"
-//       },
-//       {
-//         label: "Q2"
-//       },
-//       {
-//         label: "Q3"
-//       },
-//       {
-//         label: "Q4"
-//       }
-//     ]
-//   }
-// ];
-
-// const dataset = [
-//   {
-//     seriesname: "Previous Year",
-//     data: [
-//       {
-//         value: "12000"
-//       },
-//       {
-//         value: "10500"
-//       },
-//       {
-//         value: "23500"
-//       },
-//       {
-//         value: "16000"
-//       }
-//     ]
-//   },
-//   {
-//     seriesname: "Current Year",
-//     data: [
-//       {
-//         value: "24400"
-//       },
-//       {
-//         value: "29800"
-//       },
-//       {
-//         value: "20800"
-//       },
-//       {
-//         value: "26800"
-//       }
-//     ]
-//   }
-// ];
+import { mapState } from "vuex";
 
 export default {
   name: "BarChart",
@@ -79,55 +25,23 @@ export default {
       width: "100%",
       height: "100%",
       dataFormat: "json",
-      dataSource: {
-        chart: {
-          caption: "COVID-19 Statistics per Country",
-          xaxisname: "Country",
-          theme: "fusion"
-        },
-        categories: [],
-        dataset: []
-      }
     };
   },
-  mounted() {
-    this.$axios
-      .get(
-        "https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true"
-      )
-      .then(response => {
-        // filter API data to fit data structure for chart data
+  computed: {
+    ...mapState('chart', ['chartsData', 'chartType', 'chartView']),
+    filterByChartView() {
+      // if no view is specified, return all data
+      if(!this.chartView) return this.chartsData;
 
-        // categories
-        let categories = [];
-        categories[0] = { category: [] };
-        for (let countryData of response.data) {
-          categories[0]["category"].push({ label: countryData.country });
-        }
-
-        // infected per country
-        let dataset = [];
-        dataset[0] = { seriesname: "Infected", data: [] };
-        for (let countryData of response.data) {
-          dataset[0]["data"].push({ value: countryData.infected });
-        }
-
-        // recovered per country
-        dataset[1] = { seriesname: "Recovered", data: [] };
-        for (let countryData of response.data) {
-            dataset[1]["data"].push({ value: countryData.recovered });
-        }
-
-        // deceased per country
-        dataset[2] = { seriesname: "Deceased", data: [] };
-        for (let countryData of response.data) {
-            dataset[2]["data"].push({ value: countryData.deceased });
-        }
-
-        this.dataSource.categories = categories;
-        this.dataSource.dataset = dataset;
-      });
-  }
+      // only return data corresponding to selected view (infected/recovered/deceased)
+      let viewData = this.chartsData.dataset.filter(viewName => viewName.seriesname === this.chartView);
+      console.log(viewData);
+      return {
+        ...this.chartsData,
+        dataset: viewData
+      };
+    }
+  },
 };
 </script>
 

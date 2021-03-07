@@ -11,6 +11,6 @@ export default {
   name: "PageIndex",
   components: {
     Nav
-  }
+  },
 };
 </script>

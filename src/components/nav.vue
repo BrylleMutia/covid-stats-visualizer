@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-btn-group>
-      <q-btn label="Bar" />
+      <q-btn label="Bar" to="/bar" />
       <q-btn label="Stacked Bar" />
       <q-btn label="Pie" />
       <q-btn label="Line" />
