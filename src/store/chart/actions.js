@@ -17,6 +17,7 @@ export function fetchData({ commit }) {
 
       commit("fetchChartsData", newData);
       commit("fetchTotalsData", newData);
+      commit("fetchRawData", newData);
     })
     .catch(err => console.error(err));
 }

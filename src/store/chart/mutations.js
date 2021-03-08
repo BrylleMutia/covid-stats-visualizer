@@ -3,6 +3,15 @@ export function changeChartView(state, payload) {
   state.chartView = payload;
 }
 
+export function setSearchQuery(state, payload) {
+  // change current category on view
+  state.searchQuery = payload;
+}
+
+export function fetchRawData(state, responseData) {
+  state.rawData = responseData;
+}
+
 export function fetchTotalsData(state, responseData) {
   // calculate the worldwide total data for each category (infected, tested, etc.)
   // and the top 3 countries for each category
@@ -68,7 +77,8 @@ export function fetchChartsData(state, responseData) {
   const DATASET_VIEWS = [
     { barName: "infected", barColor: "#5D62B5" },
     { barName: "recovered", barColor: "#29C3BE" },
-    { barName: "deceased", barColor: "#F2726F" }
+    { barName: "deceased", barColor: "#F2726F" },
+    { barName: "tested", barColor: "#ffc533" },
   ];
 
   // arrange dataset from API to fit required chart data structure

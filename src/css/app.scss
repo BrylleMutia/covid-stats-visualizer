@@ -44,3 +44,26 @@ img {
 .bg-deceased {
   background-color: $deceased;
 }
+
+// FLEX-RELATED
+.flex-gap-2 {
+  gap: 2em;
+
+  @supports not(gap: 2em) {
+    // if gap is not supported (android/ios)
+    & > * {
+      margin-bottom: 2em;
+    }
+
+    & > *:nth-child(odd) {
+      margin-right: 2em;
+    }
+  }
+}
+
+
+// FONTS
+.statistics-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+}

@@ -8,7 +8,8 @@ export default ({ app, router, Vue}) => {
   });
 
   Vue.filter('numWithCommas', (text) => {
-    return text.toLocaleString().replace(/,/g, ", ");
+    if(text) return text.toLocaleString().replace(/,/g, ", ");
+    return text;
   });
   
   Vue.prototype.$filters = Vue.options.filters;

@@ -1,8 +1,14 @@
 export default function () {
   return {
-    chartsData: {},
+    chartsData: {
+      categories: [],
+      chart: {},
+      dataset: []
+    },
     totalsData: {},
+    rawData: [],
     chartType: null,
     chartView: null,
+    searchQuery: null
   }
 }
