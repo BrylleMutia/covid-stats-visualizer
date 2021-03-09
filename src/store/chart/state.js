@@ -1,4 +1,4 @@
-export default function () {
+export default function() {
   return {
     chartsData: {
       categories: [],
@@ -7,8 +7,15 @@ export default function () {
     },
     totalsData: {},
     rawData: [],
+    historyURL: null,
+    historyData: {
+      categories: [],
+      chart: {},
+      dataset: []
+    },
     chartType: null,
     chartView: null,
-    searchQuery: null
-  }
+    searchQuery: null,
+    isLoading: false
+  };
 }

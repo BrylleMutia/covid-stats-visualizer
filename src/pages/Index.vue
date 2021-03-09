@@ -8,18 +8,23 @@
           :key="index"
         />
       </div>
+
+      <loader />
     </main>
   </q-page>
 </template>
 
 <script>
-import StatCard from "../components/stat-card.vue";
 import { mapState } from "vuex";
+import StatCard from "../components/stat-card.vue";
+import Loader from "../components/loader.vue";
+
 
 export default {
   name: "PageIndex",
   components: {
-    StatCard
+    StatCard,
+    Loader
   },
   computed: {
     ...mapState("chart", ["totalsData"])

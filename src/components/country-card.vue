@@ -31,12 +31,14 @@
     <q-separator />
 
     <q-card-actions vertical>
-      <q-btn flat @click="$router.push('/history')">View History</q-btn>
+      <q-btn flat @click="goToHistory()">View History</q-btn>
     </q-card-actions>
   </q-card>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "CountryCard",
   props: {
@@ -45,7 +47,15 @@ export default {
       tested: Number,
       recovered: Number,
       deceased: Number,
+      historyData: String
   },
+  methods: {
+    ...mapMutations('chart', ['setHistoryURL']),
+    goToHistory() {
+      this.setHistoryURL(this.historyData);
+      this.$router.push('/history');
+    }
+  }
 };
 </script>
 

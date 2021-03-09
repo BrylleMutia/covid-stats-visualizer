@@ -1,47 +1,75 @@
 <template>
-  <q-page padding class="flex justify-start">
-    <main class="fit column items-center">
-      <search-input class="q-mb-lg" />
-      <div class="row full-width justify-center flex-gap-2">
-        <country-card
-          v-for="(countryData, index) in filterCountriesBySearch"
-          :key="index"
-          v-bind="countryData"
-        />
+  <q-page>
+    <section>
+      <div id="chart-container">
+        <fusioncharts
+          :type="type"
+          :width="width"
+          :height="height"
+          :dataformat="dataFormat"
+          :dataSource="filterByChartView"
+        >
+        </fusioncharts>
       </div>
-    </main>
+
+      <div class="absolute-bottom-right q-mr-lg q-mb-lg">
+        <floating-button />
+      </div>
+
+      <loader />
+    </section>
   </q-page>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import CountryCard from "../components/country-card.vue";
-import SearchInput from "../components/search-input.vue";
+import { mapActions, mapState } from "vuex";
+import FloatingButton from "../components/floating-button.vue";
+import Loader from "../components/loader.vue";
 
 export default {
   name: "History",
   data() {
     return {
-      search_query: null
+      type: "msline",
+      renderAt: "chart-container",
+      width: "100%",
+      height: "100%",
+      dataFormat: "json"
     };
   },
   components: {
-    CountryCard,
-    SearchInput
+    FloatingButton,
+    Loader
   },
   computed: {
-    ...mapState("chart", ["rawData", "searchQuery"]),
-    filterCountriesBySearch() {
-      if (!this.searchQuery) return this.rawData;
+    ...mapState("chart", ["historyURL", "historyData", 'chartView']),
+    filterByChartView() {
+      // if no view is specified, return all data
+      // exclude testing for now, bc it has big values, for better comparison
+      if (!this.chartView) 
+        return {
+          ...this.historyData,
+          dataset: this.historyData.dataset.filter(
+            data => data.seriesname !== "Tested"
+          )
+        };
 
-      // return countries relevant to search
-      return this.rawData.filter(countryData => {
-        let foundMatch = countryData.country
-          .toLowerCase()
-          .search(this.searchQuery.toLowerCase());
-        if (foundMatch !== -1) return countryData;
-      });
+      // only return data corresponding to selected view (infected/recovered/deceased)
+      let viewData = this.historyData.dataset.filter(
+        viewName => viewName.seriesname === this.chartView
+      );
+
+      return {
+        ...this.historyData,
+        dataset: viewData
+      };
     }
+  },
+  methods: {
+    ...mapActions("chart", ["fetchHistoryData"])
+  },
+  mounted() {
+    this.fetchHistoryData(this.historyURL);
   }
 };
 </script>

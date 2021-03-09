@@ -55,7 +55,7 @@ const linksData = [
   {
     title: "Country Stats",
     icon: "flag",
-    link: "/history"
+    link: "/countries"
   }
 ];
 

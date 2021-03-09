@@ -12,28 +12,18 @@
     </div>
 
     <div class="absolute-bottom-right q-mr-lg q-mb-lg">
-      <q-fab
-        v-model="is_fab_open"
-        vertical-actions-align="right"
-        color="primary"
-        icon="coronavirus"
-        direction="up"
-      >
-        <q-fab-action
-          v-for="(action, actionIndex) in fab_actions"
-          :key="actionIndex"
-          :color="action == 'Overall' ? 'primary' : action.toLowerCase()"
-          icon="coronavirus"
-          :label="action"
-          @click="changeChartView(action == 'Overall' ? null : action)"
-        />
-      </q-fab>
+      <floating-button />
     </div>
+
+    <loader />
   </q-page>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
+import FloatingButton from "../components/floating-button.vue";
+import Loader from "../components/loader.vue";
+
 
 export default {
   name: "BarChart",
@@ -44,9 +34,11 @@ export default {
       width: "100%",
       height: "100%",
       dataFormat: "json",
-      is_fab_open: false,
-      fab_actions: ["Overall", "Infected", "Tested", "Recovered", "Deceased"]
     };
+  },
+  components: {
+    FloatingButton,
+    Loader
   },
   computed: {
     ...mapState("chart", ["chartsData", "chartType", "chartView"]),
@@ -72,9 +64,7 @@ export default {
       };
     }
   },
-  methods: {
-    ...mapMutations("chart", ["changeChartView"])
-  }
+  
 };
 </script>
 
