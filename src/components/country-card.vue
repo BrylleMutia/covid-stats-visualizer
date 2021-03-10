@@ -42,18 +42,23 @@ import { mapMutations } from "vuex";
 export default {
   name: "CountryCard",
   props: {
-      country: String,
-      infected: Number,
-      tested: Number,
-      recovered: Number,
-      deceased: Number,
-      historyData: String
+    country: String,
+    infected: Number,
+    tested: Number,
+    recovered: Number,
+    deceased: Number,
+    historyData: String
   },
   methods: {
-    ...mapMutations('chart', ['setHistoryURL']),
+    ...mapMutations("chart", ["setSelectedCountry"]),
     goToHistory() {
-      this.setHistoryURL(this.historyData);
-      this.$router.push('/history');
+      const selected = {
+        name: this.country,
+        historyURL: this.historyData
+      };
+
+      this.setSelectedCountry(selected);
+      this.$router.push("/history");
     }
   }
 };

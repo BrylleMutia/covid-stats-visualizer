@@ -13,11 +13,9 @@ const BAR_CHART_CONFIG = {
 }
 
 const HISTORY_CHART_CONFIG = {
-  caption: "COVID-19 History",
   subCaption: "Start of pandemic - present",
   xaxisname: "Date",
   drawAnchors: false,
-  connectNullData: false,
   theme: "fusion"
 }
 
@@ -38,8 +36,8 @@ export function hideLoading(state) {
   state.isLoading = false;
 }
 
-export function setHistoryURL(state, payload) {
-  state.historyURL = payload;
+export function setSelectedCountry(state, payload) {
+  state.selectedCountry = payload;
 }
 
 export function fetchRawData(state, responseData) {
@@ -55,7 +53,13 @@ export function fetchHistoryData(state, responseData) {
   // categories
   categories[0] = { category: [] };
   for (let historyData of responseData) {
-    categories[0].category.push({ label: historyData.lastUpdatedAtApify.slice(0, 10) });  // only get date
+    if(historyData.lastUpdatedAtApify) {
+      categories[0].category.push({ label: historyData.lastUpdatedAtApify.slice(0, 10) });  // only get date
+      continue;
+    } else if(historyData.lastUpdatedAtSource) {
+      categories[0].category.push({ label: historyData.lastUpdatedAtSource.slice(0, 10) });  // only get date
+      continue;
+    } else continue;
   }
 
   // arrange dataset from API to fit required chart data structure
@@ -64,7 +68,7 @@ export function fetchHistoryData(state, responseData) {
   );
 
   let historyChartData = {
-    chart: HISTORY_CHART_CONFIG,
+    chart: { ...HISTORY_CHART_CONFIG, caption: `COVID-19 History (${state.selectedCountry.name})`,},
     categories,
     dataset: compiledDatasets
   };

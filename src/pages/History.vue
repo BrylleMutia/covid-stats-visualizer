@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 import FloatingButton from "../components/floating-button.vue";
 import Loader from "../components/loader.vue";
 
@@ -42,7 +42,7 @@ export default {
     Loader
   },
   computed: {
-    ...mapState("chart", ["historyURL", "historyData", 'chartView']),
+    ...mapState("chart", ["selectedCountry", "historyData", 'chartView']),
     filterByChartView() {
       // if no view is specified, return all data
       // exclude testing for now, bc it has big values, for better comparison
@@ -66,10 +66,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions("chart", ["fetchHistoryData"])
+    ...mapActions("chart", ["fetchHistoryData"]),
+    ...mapMutations('chart', ['changeChartView'])
   },
   mounted() {
-    this.fetchHistoryData(this.historyURL);
+    this.fetchHistoryData(this.selectedCountry.historyURL);
+
+    // reset view
+    this.changeChartView(null);
   }
 };
 </script>

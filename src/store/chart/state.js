@@ -7,7 +7,10 @@ export default function() {
     },
     totalsData: {},
     rawData: [],
-    historyURL: null,
+    selectedCountry: {
+      name: null,
+      historyURL: null
+    },
     historyData: {
       categories: [],
       chart: {},
