@@ -1,6 +1,6 @@
-# Quasar App (first-try)
+# Quasar App (COVID-19 Stats Visualizer)
 
-A Quasar Framework app
+COVID-19 statistics tracker and visualization tool made with Vue and Quasar.
 
 ## Install the dependencies
 ```bash
