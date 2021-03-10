@@ -57,6 +57,10 @@ img {
 
     & > *:nth-child(odd) {
       margin-right: 2em;
+
+      @media (max-width: $phone-lg) {
+        margin-right: 0;
+      }
     }
   }
 }
