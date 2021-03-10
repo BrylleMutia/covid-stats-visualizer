@@ -2,7 +2,7 @@
   "name": "covid-stats-visualizer",
   "version": "0.0.1",
   "description": "COVID statistics tracker and visualization tool made with Vue and Quasar.",
-  "productName": "Quasar App",
+  "productName": "COVID-19 Stats Visualizer",
   "author": "Brylle Mutia <bryllemutia3@gmail.com>",
   "private": true,
   "scripts": {
